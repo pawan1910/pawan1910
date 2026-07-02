@@ -1,147 +1,61 @@
-# Hex Territory
+# Hi there, I'm Pawan Singh 👋
 
-GPS-based territory capture game. Walk around and claim H3 hexagonal grid cells as your territory. Battle other players in real-time.
+Full Stack Developer specializing in building high-performance, accessible, and scalable web applications. Based in Bengaluru, India.
 
-## Stack
-
-| Layer | Tech | Free Hosting |
-|-------|------|-------------|
-| Web | Next.js 14 (App Router) | Vercel |
-| Mobile | Expo 51 (React Native) | Expo Go (dev) |
-| Server | Express + Socket.io | Render.com |
-| Database | PostgreSQL + PostGIS | Supabase |
-| Grid | H3 (resolution 9) | — |
-| Maps | OpenStreetMap (web) / Apple/Google Maps (mobile) | Free |
-
-## Prerequisites
-
-- Node.js 20+
-- pnpm 9+ (`npm i -g pnpm`)
-- Docker (optional, for local DB) **OR** a [Supabase](https://supabase.com) project
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/pawansingh1910)
+[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://portfolio-new-sandy-phi.vercel.app)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:pawansingh1910@gmail.com)
 
 ---
 
-## Local Setup
+### 🚀 About Me
 
-### 1. Install dependencies
+I am a **Full Stack Developer** with **3+ years of professional experience** delivering robust B2B/B2C products and enterprise solutions. Currently, I work as a Consultant at **Capgemini**, where I design modular UI component libraries, optimize state management structures, and build responsive, accessible web interfaces.
 
-```bash
-cd hex-territory
-pnpm install
-```
-
-### 2. Start the database
-
-**Option A — Docker (recommended for local dev):**
-```bash
-docker compose up -d
-# Schema is auto-applied from apps/server/src/db/schema.sql
-```
-
-**Option B — Supabase (free hosted):**
-1. Create a project at https://supabase.com (free tier)
-2. Run `apps/server/src/db/schema.sql` in the Supabase SQL editor
-3. Copy the connection string from Settings → Database
-
-### 3. Configure environment variables
-
-```bash
-# Server
-cp apps/server/.env.example apps/server/.env
-# Edit DATABASE_URL and JWT_SECRET
-
-# Web
-cp apps/web/.env.local.example apps/web/.env.local
-
-# Mobile
-cp apps/mobile/.env.example apps/mobile/.env
-```
-
-For mobile dev on a real device, replace `localhost` with your machine's local IP:
-```
-EXPO_PUBLIC_SERVER_URL=http://192.168.x.x:4000
-```
-
-### 4. Run everything
-
-```bash
-pnpm dev
-# Starts: server (:4000) + web (:3000) in parallel
-```
-
-Mobile separately:
-```bash
-cd apps/mobile
-pnpm start   # Scan QR with Expo Go app
-```
+- 💻 **Frontend Focus**: React.js (v17/18), Next.js (App Router, Server Components), TypeScript, Zustand, Redux Toolkit/Saga, and Tailwind CSS.
+- ⚙️ **Backend Focus**: Python (FastAPI), Node.js, WebSockets (Socket.io / python-socketio), and PostgreSQL + PostGIS.
+- 🛡️ **Accessibility & Performance**: Expert in WCAG 2.1 AA compliance, keyboard navigation, screen reader optimizations, and Core Web Vitals (LCP, FID, CLS).
+- 🧠 **AI/ML Enthusiast**: Developed and deployed complete end-to-end proctoring kiosk software utilizing computer vision models.
 
 ---
 
-## Deployment (Free Tier)
+### 🛠️ Technical Toolkit
 
-### Database → Supabase
-1. Create project at https://supabase.com
-2. Run `schema.sql` in SQL Editor
-3. Use the connection string as `DATABASE_URL`
-
-### Server → Render.com
-1. Connect GitHub repo at https://render.com
-2. New → Web Service → `apps/server`
-3. Build: `pnpm install && pnpm build`
-4. Start: `node dist/index.js`
-5. Set env vars: `DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGIN`
-
-> Note: Render free tier spins down after 15 min inactivity. Use Railway ($5 free credit) for always-on.
-
-### Web → Vercel
-1. Import repo at https://vercel.com
-2. Root directory: `apps/web`
-3. Set `NEXT_PUBLIC_SERVER_URL` to your Render URL
-
-### Mobile → Expo EAS (free builds)
-```bash
-npm i -g eas-cli
-eas login
-cd apps/mobile
-eas build --platform all --profile preview
-```
+| Category | Technologies |
+| :--- | :--- |
+| **Languages** | JavaScript (ES6+), TypeScript, Python, HTML5, CSS3, SQL |
+| **Frontend Frameworks** | React.js, Next.js, Redux, React Router v6 |
+| **UI Styling & Systems** | Tailwind CSS, Material UI, Ant Design, Storybook |
+| **Backend & Real-time** | Python (FastAPI), Node.js (Express), Electron, Socket.io, WebSockets |
+| **Database & GIS** | PostgreSQL, PostGIS, H3 Hexagonal Grid |
+| **DevOps & Build Tools** | Git, GitHub Actions, CI/CD, Vite, Webpack, Docker, Vercel |
+| **Testing & Quality** | Jest, React Testing Library, Lighthouse, Core Web Vitals |
 
 ---
 
-## Architecture
+### 📁 Featured Projects
 
-```
-hex-territory/
-├── apps/
-│   ├── web/          Next.js — map UI, auth, leaderboard
-│   ├── mobile/       Expo — native map, GPS tracking
-│   └── server/       Express + Socket.io — REST API + real-time
-└── packages/
-    └── shared/       TypeScript types + H3_RESOLUTION constant
-```
+#### 1. **SmartProctor** (AI-Powered Proctoring Platform)
+*Solo Build · Deployed in Production*
+- **Stack**: React, Electron, Python (FastAPI), WebSockets, Pydantic, JWT.
+- Designed and built a tamper-proof kiosk assessment browser using Electron's `BrowserWindow` APIs, blocking 10+ escape vectors.
+- Integrated a Python AI detection engine with FastAPI background tasks for real-time facial recognition and audio analysis violation logging.
+- Created a real-time WebSocket dashboard for proctors to monitor assessment sessions instantly.
 
-### Key flows
+#### 2. **Hex Territory** (Real-time GPS Capture Game)
+- **Stack**: Next.js 14, Expo Go (React Native), Python (FastAPI), Socket.io, PostgreSQL + PostGIS, Uber H3 Spatial Indexing.
+- Built a multi-player GPS-based mapping game where players capture hexagonal grid cells in real-time.
+- Implemented real-time claim broadcasts using Python Socket.io server and spatial bounding box queries with PostGIS.
 
-**Claiming a cell:**
-1. Client sends `POST /api/territory/claim` with `{ lat, lng }`
-2. Server converts coords → H3 index (res 9)
-3. Server upserts `hex_cells`, logs `territory_events`, updates score in a transaction
-4. Server returns cell data; client emits `cell:claim` via Socket.io
-5. Socket handler broadcasts `cell:claimed` to all connected clients
-
-**Real-time sync:**
-- On map move, client fetches `/api/territory/cells?bbox=...` (PostGIS spatial query)
-- Socket.io pushes instant updates when any player claims a cell
+#### 3. **Learning App (Duolingo-style)**
+- **Stack**: React.js, Material UI, Redux, WCAG 2.1 AA.
+- Developed an adaptive lesson progression learning platform supporting state sync across multiple devices.
+- Shipped a reusable UI library, reducing new feature development timelines by ~50%.
 
 ---
 
-## H3 Resolution
+### 📫 Let's Connect!
 
-Resolution 9 cells are ~0.1 km² (~174 m diameter) — good for walking.
-Change `H3_RESOLUTION` in `packages/shared/src/types.ts` to tune granularity.
-
-| Resolution | Diameter | Use case |
-|-----------|----------|----------|
-| 8 | ~460 m | City blocks |
-| 9 | ~174 m | Walking (default) |
-| 10 | ~65 m | Fine-grained |
+- 🌐 Check out my live portfolio at [portfolio-new-sandy-phi.vercel.app](https://portfolio-new-sandy-phi.vercel.app)
+- 💼 Connect with me on [LinkedIn](https://linkedin.com/in/pawansingh1910)
+- ✉️ Email me at [pawansingh1910@gmail.com](mailto:pawansingh1910@gmail.com)
