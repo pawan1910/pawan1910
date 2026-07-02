@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Hex Territory",
+    "slug": "hex-territory",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "hex-territory",
+    "userInterfaceStyle": "dark",
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Hex Territory uses your location to track territory."
+        }
+      ],
+      [
+        "expo-router",
+        {
+          "root": "app"
+        }
+      ]
+    ],
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0f172a"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "ios": {
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Used to track your position and claim territory."
+      }
+    }
+  }
+}

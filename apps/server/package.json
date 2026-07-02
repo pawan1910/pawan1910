@@ -1,0 +1,15 @@
+{
+  "name": "@hex-territory/server",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "./.venv/bin/uvicorn main:app --reload --port 4000 --host 0.0.0.0",
+    "build": "python3 -m venv .venv && ./.venv/bin/pip install -r requirements.txt",
+    "start": "./.venv/bin/uvicorn main:app --port 4000 --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@hex-territory/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
