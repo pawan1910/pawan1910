@@ -18,72 +18,39 @@ export default function LeaderboardPage() {
   }, [])
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: '#0f172a',
-        color: '#f1f5f9',
-        padding: '40px 16px',
-      }}
-    >
-      <div style={{ maxWidth: 560, margin: '0 auto' }}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: 28,
-          }}
-        >
-          <h1 style={{ fontSize: 24, fontWeight: 700 }}>Leaderboard</h1>
-          <Link
-            href="/game"
-            style={{
-              color: '#60a5fa',
-              textDecoration: 'none',
-              fontSize: 14,
-              fontWeight: 500,
-            }}
-          >
-            ← Back to map
+    <div className="leaderboard-container">
+      <div className="glass-panel leaderboard-card">
+        <div className="leaderboard-header">
+          <h1>Global Leaderboard</h1>
+          <Link href="/game" className="leaderboard-back-link">
+            ← Back to Map
           </Link>
         </div>
 
         {loading ? (
-          <p style={{ color: '#64748b' }}>Loading…</p>
+          <p style={{ color: '#64748b', textAlign: 'center', padding: 20 }}>Loading scores…</p>
         ) : (
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <table className="cyber-table">
             <thead>
-              <tr style={{ color: '#64748b', fontSize: 13 }}>
-                {['#', 'Player', 'Cells', 'Score'].map((h) => (
-                  <th
-                    key={h}
-                    style={{
-                      textAlign: h === '#' || h === 'Player' ? 'left' : 'right',
-                      padding: '8px 0',
-                      borderBottom: '1px solid #1e293b',
-                    }}
-                  >
-                    {h}
-                  </th>
-                ))}
+              <tr>
+                <th style={{ width: 60 }}>Rank</th>
+                <th style={{ textAlign: 'left' }}>Player</th>
+                <th style={{ textAlign: 'right' }}>Cells</th>
+                <th style={{ textAlign: 'right' }}>Score</th>
               </tr>
             </thead>
             <tbody>
               {entries.map((entry, i) => (
                 <tr key={entry.userId}>
-                  <td
-                    style={{
-                      padding: '12px 0',
-                      borderBottom: '1px solid #1e293b',
-                      color: i < 3 ? ['#fbbf24', '#94a3b8', '#b45309'][i] : '#475569',
-                      fontWeight: 600,
-                    }}
-                  >
-                    {i + 1}
+                  <td style={{ textAlign: 'center' }}>
+                    {i < 3 ? (
+                      <span className={`rank-badge rank-${i + 1}`}>{i + 1}</span>
+                    ) : (
+                      <span className="rank-badge rank-other">{i + 1}</span>
+                    )}
                   </td>
-                  <td style={{ padding: '12px 0', borderBottom: '1px solid #1e293b' }}>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                  <td>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
                       <span
                         style={{
                           width: 12,
@@ -91,29 +58,14 @@ export default function LeaderboardPage() {
                           borderRadius: '50%',
                           background: entry.color,
                           display: 'inline-block',
-                          boxShadow: `0 0 4px ${entry.color}`,
+                          boxShadow: `0 0 6px ${entry.color}`,
                         }}
                       />
-                      {entry.username}
+                      <span style={{ fontWeight: 500 }}>{entry.username}</span>
                     </span>
                   </td>
-                  <td
-                    style={{
-                      textAlign: 'right',
-                      padding: '12px 0',
-                      borderBottom: '1px solid #1e293b',
-                    }}
-                  >
-                    {entry.cellCount}
-                  </td>
-                  <td
-                    style={{
-                      textAlign: 'right',
-                      padding: '12px 0',
-                      borderBottom: '1px solid #1e293b',
-                      color: '#64748b',
-                    }}
-                  >
+                  <td style={{ textAlign: 'right', fontWeight: 600 }}>{entry.cellCount}</td>
+                  <td style={{ textAlign: 'right', color: '#60a5fa', fontWeight: 600 }}>
                     {entry.score}
                   </td>
                 </tr>

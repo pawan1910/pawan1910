@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { StyleSheet } from 'react-native'
 import MapView, { Polygon, Circle, type Region } from 'react-native-maps'
-import { cellToBoundary } from 'h3-js'
 import { useGameStore } from '../store/gameStore'
 
 export default function HexMap() {
@@ -31,7 +30,9 @@ export default function HexMap() {
   }
 
   const hexPolygons = Array.from(cells.values()).map((cell) => {
-    const boundary = cellToBoundary(cell.h3Index)
+    // Use pre-computed boundary from the server instead of h3-js
+    const boundary = cell.boundary
+    if (!boundary || boundary.length === 0) return null
     const coordinates = boundary.map(([lat, lng]) => ({ latitude: lat, longitude: lng }))
     const color = cell.ownerColor || '#475569'
     return (
@@ -60,8 +61,10 @@ export default function HexMap() {
       showsMyLocationButton
       onRegionChangeComplete={handleRegionChange}
       onUserLocationChange={(e) => {
-        const { latitude, longitude } = e.nativeEvent.coordinate
-        setPosition(latitude, longitude)
+        const coord = e.nativeEvent.coordinate
+        if (coord) {
+          setPosition(coord.latitude, coord.longitude)
+        }
       }}
       mapType="standard"
     >

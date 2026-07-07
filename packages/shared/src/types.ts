@@ -13,6 +13,7 @@ export interface HexCell {
   ownerUsername: string | null
   ownerColor: string | null
   claimedAt: string | null
+  boundary?: [number, number][]  // [[lat, lng], ...] pre-computed polygon vertices
 }
 
 export interface ClaimEvent {
@@ -40,6 +41,7 @@ export interface LeaderboardEntry {
   color: string
   cellCount: number
   score: number
+  distance?: number | null
 }
 
 export interface ServerToClientEvents {

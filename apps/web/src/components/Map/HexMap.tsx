@@ -25,11 +25,15 @@ export default function HexMap() {
     (L: typeof LeafletType, incoming: Map<string, HexCell>) => {
       if (!mapRef.current) return
       incoming.forEach((cell, h3Index) => {
-        const color = cell.ownerColor ?? '#475569'
-        const fillOpacity = cell.ownerId ? 0.45 : 0.08
+        const color = cell.ownerColor ?? '#64748b'
+        const isOwned = !!cell.ownerId
+        const fillOpacity = isOwned ? 0.35 : 0.04
+        const weight = isOwned ? 2.5 : 1.2
+        const opacity = isOwned ? 0.9 : 0.45
+
         const existing = polygonsRef.current.get(h3Index)
         if (existing) {
-          existing.setStyle({ color, fillColor: color, fillOpacity })
+          existing.setStyle({ color, fillColor: color, fillOpacity, weight, opacity })
           return
         }
         const boundary = cellToBoundary(h3Index)
@@ -38,8 +42,9 @@ export default function HexMap() {
           color,
           fillColor: color,
           fillOpacity,
-          weight: 1.5,
-          opacity: 0.9,
+          weight,
+          opacity,
+          dashArray: isOwned ? undefined : '4, 4',
         }).addTo(mapRef.current!)
         polygon.on('click', () => {
           const c = polygon.getBounds().getCenter()
@@ -66,8 +71,8 @@ export default function HexMap() {
     })
 
     const map = L.map(containerRef.current, { zoomControl: true }).setView([20, 0], 3) as ExtendedMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://carto.com/attributions">CARTO</a>',
       maxZoom: 19,
     }).addTo(map)
     mapRef.current = map

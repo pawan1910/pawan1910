@@ -6,6 +6,7 @@ import type {
   ServerToClientEvents,
   ClientToServerEvents,
   User,
+  LeaderboardEntry,
 } from '@hex-territory/shared'
 
 const SERVER_URL = process.env.EXPO_PUBLIC_SERVER_URL!
@@ -16,12 +17,14 @@ interface GameState {
   cells: Map<string, HexCell>
   socket: Socket<ServerToClientEvents, ClientToServerEvents> | null
   position: { lat: number; lng: number } | null
+  leaderboard: LeaderboardEntry[]
 
   init: (token: string, user: Pick<User, 'id' | 'username' | 'color'>) => void
   cleanup: () => void
   setPosition: (lat: number, lng: number) => void
   claimCell: (lat: number, lng: number) => Promise<void>
   loadCells: (bounds: { minLat: number; minLng: number; maxLat: number; maxLng: number }) => Promise<void>
+  loadLeaderboard: () => Promise<void>
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -30,6 +33,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   cells: new Map(),
   socket: null,
   position: null,
+  leaderboard: [],
 
   init(token, user) {
     const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(SERVER_URL, {
@@ -47,13 +51,16 @@ export const useGameStore = create<GameState>((set, get) => ({
         })
         return { cells }
       })
+      // Refresh leaderboard after a claim
+      get().loadLeaderboard()
     })
     set({ token, user, socket })
+    get().loadLeaderboard()
   },
 
   cleanup() {
     get().socket?.disconnect()
-    set({ socket: null, user: null, token: null, cells: new Map(), position: null })
+    set({ socket: null, user: null, token: null, cells: new Map(), position: null, leaderboard: [] })
   },
 
   setPosition(lat, lng) {
@@ -98,5 +105,26 @@ export const useGameStore = create<GameState>((set, get) => ({
       })
       return { cells }
     })
+    get().loadLeaderboard()
+  },
+
+  async loadLeaderboard() {
+    const { token, position } = get()
+    if (!token) return
+    try {
+      let url = `${SERVER_URL}/api/leaderboard`
+      if (position) {
+        url += `?lat=${position.lat}&lng=${position.lng}`
+      }
+      
+      const res = await fetch(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      if (!res.ok) return
+      const data: LeaderboardEntry[] = await res.json()
+      set({ leaderboard: data })
+    } catch (e) {
+      console.error('Failed to load leaderboard', e)
+    }
   },
 }))

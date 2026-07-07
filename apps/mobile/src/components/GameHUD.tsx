@@ -4,7 +4,11 @@ import { useRouter } from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useGameStore } from '../store/gameStore'
 
-export default function GameHUD() {
+interface GameHUDProps {
+  onShowLeaderboard: () => void
+}
+
+export default function GameHUD({ onShowLeaderboard }: GameHUDProps) {
   const { user, cells, position, claimCell, cleanup } = useGameStore()
   const router = useRouter()
 
@@ -36,6 +40,9 @@ export default function GameHUD() {
       >
         <Text style={s.claimBtnText}>Claim</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={s.lbBtn} onPress={onShowLeaderboard}>
+        <Text style={s.lbBtnText}>Rank</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={s.outBtn} onPress={handleLogout}>
         <Text style={s.outBtnText}>Out</Text>
       </TouchableOpacity>
@@ -65,6 +72,8 @@ const s = StyleSheet.create({
   statNum: { color: '#f1f5f9', fontWeight: '700' },
   claimBtn: { backgroundColor: '#3b82f6', borderRadius: 8, paddingHorizontal: 14, paddingVertical: 7 },
   claimBtnText: { color: '#fff', fontWeight: '700', fontSize: 13 },
+  lbBtn: { backgroundColor: '#475569', borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6 },
+  lbBtnText: { color: '#f1f5f9', fontSize: 12, fontWeight: '600' },
   outBtn: { borderWidth: 1, borderColor: 'rgba(255,255,255,0.15)', borderRadius: 8,
     paddingHorizontal: 10, paddingVertical: 6 },
   outBtnText: { color: '#64748b', fontSize: 12 },

@@ -41,7 +41,8 @@ async def get_cells(
                 "ownerId": str(r["owner_id"]) if r["owner_id"] else None,
                 "ownerUsername": r["owner_username"],
                 "ownerColor": r["owner_color"],
-                "claimedAt": r["claimed_at"].isoformat() + "Z" if r["claimed_at"] else None
+                "claimedAt": r["claimed_at"].isoformat() + "Z" if r["claimed_at"] else None,
+                "boundary": [list(coord) for coord in h3.cell_to_boundary(r["h3_index"])]
             }
             for r in rows
         ]

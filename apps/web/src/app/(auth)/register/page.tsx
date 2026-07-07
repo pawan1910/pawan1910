@@ -33,34 +33,40 @@ export default function RegisterPage() {
 
   return (
     <div className="auth-page">
-      <div className="auth-card">
+      <div className="glass-panel auth-card">
         <h1>Hex Territory</h1>
         <h2>Create your account</h2>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Username"
-            value={form.username}
-            onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
-            required
-            minLength={3}
-            maxLength={50}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password (min 8 chars)"
-            value={form.password}
-            onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
-            required
-            minLength={8}
-          />
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="Username"
+              value={form.username}
+              onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
+              required
+              minLength={3}
+              maxLength={50}
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="email"
+              placeholder="Email address"
+              value={form.email}
+              onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <input
+              type="password"
+              placeholder="Password (min 8 characters)"
+              value={form.password}
+              onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+              required
+              minLength={8}
+            />
+          </div>
           {error && <p className="error">{error}</p>}
           <button type="submit" disabled={loading}>
             {loading ? 'Creating account…' : 'Create Account'}

@@ -1,7 +1,7 @@
 {
   "name": "@hex-territory/mobile",
   "version": "1.0.0",
-  "main": "expo-router/entry",
+  "main": "./index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -9,22 +9,25 @@
   },
   "dependencies": {
     "@hex-territory/shared": "workspace:*",
-    "@react-native-async-storage/async-storage": "1.23.1",
-    "expo": "~51.0.0",
-    "expo-location": "~17.0.1",
-    "expo-router": "~3.5.14",
-    "expo-status-bar": "~1.12.1",
-    "h3-js": "^4.1.0",
-    "react": "18.2.0",
-    "react-native": "0.74.1",
-    "react-native-maps": "1.14.0",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "~54.0.35",
+    "expo-constants": "~18.0.13",
+    "expo-linking": "~8.0.12",
+    "expo-location": "~19.0.8",
+    "expo-router": "~6.0.24",
+    "expo-status-bar": "~3.0.9",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-maps": "1.20.1",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0",
     "socket.io-client": "^4.7.5",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
-    "@types/react": "~18.2.79",
-    "babel-preset-expo": "~11.0.0",
-    "typescript": "~5.3.3"
+    "@types/react": "~19.1.17",
+    "babel-preset-expo": "~54.0.11",
+    "typescript": "~5.9.3"
   }
 }

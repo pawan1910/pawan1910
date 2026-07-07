@@ -6,10 +6,10 @@ const workspaceRoot = path.resolve(projectRoot, '../..')
 
 const config = getDefaultConfig(projectRoot)
 
-// Watch the entire monorepo for changes
-config.watchFolders = [workspaceRoot]
+// Watch the entire monorepo for changes (append to defaults)
+config.watchFolders = [...(config.watchFolders || []), workspaceRoot]
 
-// Resolve packages from the workspace root first, then the project root
+// Resolve packages from the project root first, then workspace root
 config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, 'node_modules'),
   path.resolve(workspaceRoot, 'node_modules'),

@@ -1,15 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { useRouter } from 'expo-router'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as Location from 'expo-location'
 import HexMap from '../src/components/HexMap'
 import GameHUD from '../src/components/GameHUD'
+import LeaderboardModal from '../src/components/LeaderboardModal'
 import { useGameStore } from '../src/store/gameStore'
 
 export default function GameScreen() {
   const router = useRouter()
   const { init, cleanup, setPosition } = useGameStore()
+  const [showLeaderboard, setShowLeaderboard] = useState(false)
 
   useEffect(() => {
     let locationSub: Location.LocationSubscription | null = null
@@ -39,7 +41,8 @@ export default function GameScreen() {
   return (
     <View style={s.container}>
       <HexMap />
-      <GameHUD />
+      <GameHUD onShowLeaderboard={() => setShowLeaderboard(true)} />
+      <LeaderboardModal visible={showLeaderboard} onClose={() => setShowLeaderboard(false)} />
     </View>
   )
 }
